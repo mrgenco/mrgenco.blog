@@ -1,0 +1,140 @@
+---
+title: 'Dockerizing A SpringBoot Application'
+summary: 'This article will show you how to create a Docker Container from a SpringBoot application'
+date: '2019-11-24'
+lastmod: '2019-11-24'
+authors: ['default']
+tags: ['docker', 'springboot']
+---
+
+![env-variables-vue-banner](https://images.unsplash.com/photo-1572315831029-5d6f20e0035d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80)
+
+This short article will show you how to create a Docker Container from a SpringBoot application.
+A sample project is commited on Github. Click [here](https://github.com/mrgenco/springbootdocker) to check the project.
+
+## Prerequisites:
+
+- Docker must be installed on your machine.
+- You have basic knowledge of SpringBoot and Docker Concepts
+
+## A Very Short Introduction
+
+**DOCKER** is a tool to make it easier to build, deploy, and run applications in an isolated environment called **CONTAINERS**.
+
+**CONTAINERS** allow a developer to package up an application with all of its dependencies, and ship it as one package.
+
+For Java Developers and JVM the slogan is **"Write Once Run Anywhere"** while for Docker and Containers we can say **"Package Once Deploy Anywhere"**.
+
+If you want to learn more please checkout [Docker Official Documents](https://docs.docker.com/). It is very helpfull.
+
+### Docker CLI – image commands
+
+**docker image [COMMAND]**
+
+- **build :** Build an image.
+- **push :** Push an image to a remote registry.
+- **ls :** List images.
+- **history :** See intermediate image info.
+- **inspect :** See lots of info about an image, including the layers.
+- **rm :** Delete an image.
+
+### Docker CLI – container commands
+
+docker container [COMMAND]
+
+- **create :** Create a container from an image.
+- **start :** Start an existing container.
+- **run :** Create a new container and start it.
+- **ls :** List running containers.
+- **inspect :** See lots of info about a container.
+- **logs :** Print logs.
+- **stop :** Gracefully stop running container.
+- **kill :** Stop main process in container abruptly.
+- **rm :** Delete a stopped container.
+
+## Why We Are Containerizing An Application ?
+
+Because it solves a lot of problem that we are facing during our day-to-day work as a developer. Below is a list of benefits that i am touching briefly.
+
+- A Container **eliminates it works on my machine problem** by providing a runnable isolated package of an application.
+- **Portability :** Since Docker containers encapsulate everything an application needs to run (and only those things), they allow applications to be shared easily between environments.
+- **Efficient use of resources :** Instances of containerized apps use far less memory than virtual machines, they start up and stop more quickly.
+- **Fast Application Delivery :** Containers carry the minimal runtime requirements of an application, decreasing its size and enabling them to be deployed instantly.
+- **Rapid creation of development environments.**
+- **Ecosystem (Docker Hub, Other Registeries).**
+
+** In the next chapters I will be writing down the steps required
+for creating a containerized SpringBoot application using Docker. **
+
+## Step - 1 Updating pom.xml in the project
+
+The first step is adding SpringBoot maven plugin into the pom.xml file in your project.
+
+By doing so you can create executable jar file of your SpringBoot application.
+
+After adding the lines below. You can run `mvn clean package` command. This command will generate the jar file in the **target** folder.
+
+```xml
+<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<finalName>docker-springboot</finalName>
+</build>
+```
+
+## Step - 2 Create A Dockerfile
+
+Create a Dockerfile in the root directory of your project.
+
+Docker can build images automatically by reading the instructions from a Dockerfile.
+
+The Dockerfile is essentially the build instructions to build the image.
+
+```js
+
+# Dockerfile for our SpringBoot application
+# Set the baseImage to use for subsequent instructions.
+# FROM must be the first instruction in a Dockerfile.
+# jdk-alpine is the minimal image for running jar files
+FROM openjdk:jdk-alpine
+
+# Add maintainer info
+LABEL maintainer = "mrgenco"
+
+# Copy files, folders, or remote URLs from source to the dest path in the filesystem.
+ADD target/docker-springboot.jar docker-springboot.jar
+
+# Define the network ports that this container will listen on at runtime.8080
+EXPOSE 8080
+
+# Configures the container to be run as an executable.
+ENTRYPOINT ["java", "-jar", "docker-springboot.jar"]
+
+```
+
+## Step - 3 Create An Image
+
+The next step is to create an Image using your Dockerfile. In terminal you need to navigate to the same directory where your Dockerfile exists.
+
+```sh
+
+docker image build -t mrgenco-springboot-image .
+
+
+```
+
+## Step - 4 Run The Container
+
+After creating your image the last step is Running a Container using your created image.
+
+```sh
+
+docker container run -it -p 8085:8080 --name mrgenco-springboot-container mrgenco-springboot-image
+
+```
+
+**Thanks for reading!**

@@ -1,0 +1,95 @@
+---
+title: 'Environment Variables Vue.js'
+summary: 'Environment variables help you manage your application configuration data dynamically.'
+date: '2019-12-06'
+lastmod: '2019-12-06'
+authors: ['default']
+tags: ['vue', 'javascript', 'springboot']
+draft: false
+---
+
+![env-variables-vue-banner](https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1352&q=80)
+
+### Why Environment Variables Are Important?
+
+Lets think about the configuration data we use such as 3rd party API urls or any other specific parameters consisting of key-value pairs troughout our web applications. Assume that you have to change those key-value pairs whenever the environment of your application run changes. For example, an API url for a test environment must be different than the one on pilot or production environments. It would be really difficult and time-consuming to change all those values manually and release a new package every time we deploy to a new environment.
+
+Considering that there may be dozens of different configuration data in large and enterprise applications, this could turn into a nightmare for a developer. Fortunately we have environment variables.
+
+> The most important usage of environment variables is managing application configuration data dynamically according to your environment. So that they prevent manual changes and possible errors caused by these changes.
+
+<br>
+
+Today we will learn how to use environment variables in Vue.js applications with an example application. If you are in a rush you can click [here](https://github.com/mrgenco/envvar) to see the source code. Note that the Environment Variables concept is not limited to Vue.js. It is actually a common concept in JavaScript applications. Check [this](https://github.com/motdotla/dotenv#rules) repo for further details.
+
+### Environment Variables In Vue.js Applications
+
+You can specify env variables by placing the following files in your project root:
+
+```sh
+.env                # loaded in all cases
+.env.local          # loaded in all cases, ignored by git
+.env.[mode]         # only loaded in specified mode
+.env.[mode].local   # only loaded in specified mode, ignored by git
+```
+
+An env variables file consists of key-value pairs like following example.
+
+```sh
+VUE_APP_API_URL=url
+```
+
+Note that only variables that start with `VUE_APP_` prefix will be parsed.
+
+### Accessing Environment Variables in Client-side Code
+
+You can access environment variables in your application code:
+
+```js
+console.log(process.env.VUE_APP_API_URL)
+```
+
+During the build process, `process.env.VUE_APP_API_URL` will be replaced by the corresponding value. In the case of VUE_APP_API_URL=url, it will be replaced by "url".
+
+### Using Env Variables with Custom Build Scripts
+
+Now we defined our env variables and we changed all hard coded variables in our application code for accessing these variables.
+The next step is to create custom scripts in our **package.json** file so that we can load different environment variables automatically in our builds.
+
+By default Vue CLI projects have 3 mode. These modes are activated using commands below.
+
+- **development** is used by **vue-cli-service serve**
+- **test** is used by **vue-cli-service test:unit**
+- **production** is used by **vue-cli-service build** and **vue-cli-service test:e2e**
+
+We can change the default mode that a command uses according to our needs.
+
+For example, lets create `.env.development` , `.env.test` and `.env.production` files in our root directory.
+After that, add below scripts into the **scripts** property that exists in the **package.json** file.
+
+```sh
+"scripts": {
+
+    "serve": "vue-cli-service serve",
+
+    "serve-test": "vue-cli-service serve --mode test",
+
+    "build-test": "vue-cli-service build --mode test",
+
+    "build-prod": "vue-cli-service build"
+  }
+```
+
+We can now run these scripts for our builds. Each script has its explanation next to it.
+
+- **serve** : **.env.development** serve with hot reload dev server using development env variables.
+
+- **serve-test** : **.env.test** serve with hot reload dev server using test env variables.
+
+- **build-test** : **.env.test** build and create deployable bundle in dist folder using test variables.
+
+- **build-prod** : **.env.production** build and create deployable bundle in dist folder using production variables.
+
+You can learn more about build modes and env. variables in Vue.js by refering [official docs](https://cli.vuejs.org/guide/mode-and-env.html).
+
+Leave your questions and comments below. Thanks.

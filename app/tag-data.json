@@ -1,1 +1,14 @@
-{ "apple": 1, "iphone16": 1, "smartphones": 1, "technology": 1, "ai": 1 }
+{
+  "apple": 1,
+  "iphone16": 1,
+  "smartphones": 1,
+  "technology": 1,
+  "ai": 1,
+  "java": 1,
+  "javascript": 3,
+  "springboot": 3,
+  "docker": 1,
+  "serverless": 1,
+  "containers": 1,
+  "nodejs": 2
+}

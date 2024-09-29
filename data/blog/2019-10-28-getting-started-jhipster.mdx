@@ -1,0 +1,87 @@
+---
+title: 'A Real World Project Experience And Getting Started With Jhipster '
+date: '2019-12-04'
+lastmod: '2019-12-04'
+tags: ['java', 'javascript', 'springboot']
+draft: false
+summary: 'In this very first blog post, I’d like to share a bit about my own experience using an opensource platform called JHipster (or JavaHipster)'
+authors: ['default']
+---
+
+![getting-started-jhipster-banner](https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2027&q=80)
+
+In this very first blog post, I’d like to share a bit about my own experience using an opensource platform called JHipster (or JavaHipster). So that you have an idea before you consider using it in your daily work or just wondering what it is and how it works.
+
+If this is the first time you heard about JHipster, it is well known as an application generator or yeoman generator that helps you rapidly generate your web application or even a microservice architecture. JHipster generates its backend as a SpringBoot application and generates a frontend that comes with Angular, React and Vue(community) options. If you are wondering the technology stack behind it, here you can find it. And yes JHipster generates all the source code you need for running and customizing your application.
+
+JHipster also provides you a Graphical UI (JDL Studio), JHipster UML tool and a CLI for modeling and generating your database entities and relationships between them. If you are starting a new project and you are designing your database tables from scratch these options are really time-saving. But depending on your project needs some times you have to think carefully. It is really a great tool for quick prototyping and with its production-grade features but that doesn’t mean it suits all the projects, teams or use-cases. In the next title, I will share my experience with JHipster.
+
+## The Project Experience
+
+A few months ago I had a chance to work in a project where the requirement was shortly to provide an Admin application that has friendly user interfaces so that a user can easily inspect database logs and make CRUD (Create, Read, Update, Delete) operations on business lookup tables when needed. The application now in the production environment and it has REST APIs for CRUD operations, Authentication and Authorization flow, an SPA UI for consuming REST APIs as well as Logging, Auditing facilities.
+
+At the beginning of the project, we gave JHipster a try and we did a POC considering our requirements. After a POC we found that JHipster’s capabilities were satisfying for our requirements. But for a couple of reasons that I will be sharing in the next paragraphs, we didn’t continue using it for this specific project. Before I continue I must say that the JHipster generated code was definitely clean, high quality and production-ready for us. If you have enough time to invest in learning JHipster, you will most likely be satisfied in the end.
+
+### Database first approach
+
+At the time we considered using JHipster in our project, we had tons of existing tables and complex relationships between them. So, we found that it would be difficult to generate all the data layer code (or entities ) using a tool like JHipster UML and JDL Studio. Because you have to model each table one by one which is not practical in a database first scenario. Instead, we generated all our data layer using a reverse engineering tool so that we didn’t have to model all the tables. But if we were using Model first approach I’m sure that JHipster would do the job for us. I will be sharing a blog post about the reverse engineer tool we use and provide you an example usage.
+
+### Frontend technology
+
+We wanted to use VueJS as our SPA frontend and Material design as our style guideline in the project. JHipster by default comes with Angular and React options and Bootstrap CSS framework. This maybe was not a good reason for not using JHipster because it already generates REST endpoints for your database tables and you can use any front-end technology you want. In the official documentation, they are giving details about separating front-end and API server. Honestly, we were only two developers working on the project and we had a deadline. So, we thought that if we were going to change the entire front-end code it is better to write it from scratch.
+
+> Now there is a [Community Vue Generator](https://www.jhipster.tech/using-vue/) which is officially supported by JHipster!
+
+### Lack of experience
+
+If you have a tight deadline as we do and its the first time you try JHipster, it might not be beginner-friendly since you need to know all of its components before going into the production. At least that was the case for us. We were only two backend developers and we had little to no prior experience with modern frontend tooling. Also, as you can see in this GitHub demo there are a lot of configuration files generated by JHipster. Since we didn’t know what’s going on with all these files and generated code seems complicated in the beginning, we didn’t want to take the risk at that time. But after the project, as I invest my time learning the purpose and usage of these files I realized that they are part of the modern web development and they are all necessary indeed. And the generated code seems clear later on.
+
+## Installing JHipster
+
+Below list shows you all the tools you need for running JHipster in your local machine. But if you can’t wait to try it, JHipster Online is a simple way to generate an application without installing JHipster to your local machine.
+
+1. Install Java 11
+2. Install Git from https://git-scm.com.
+3. Install Node.js from http://nodejs.org. JHipster recommends using an LTS release.
+4. Run the following command to install JHipster.
+
+```sh
+npm i -g generator-jhipster@6.1.2
+```
+
+If you’re using Yarn, run following command
+
+```sh
+yarn global add generator-jhipster@6.1.2
+```
+
+## Creating an Application
+
+After installing all the tools, to create a new project, open a terminal window and create a new directory for your project.
+For example, **mkdir JHipsterSampleApp**. Navigate into the directory and run **jhipster** command. You’ll be prompted to answer a number of questions about the type of application you want to create and what features you’d like to include.
+
+After answering all the questions you will wait a couple of minutes or seconds depending on your internet speed. Well done! You have a working application now. You can either run it directly from the terminal or import it to your IDE if you want to customize it.
+
+In order to run the generated application you have to enter the following commands accordingly:
+
+If you have chosen Maven, the required command is:
+
+```sh
+./mvnw (on macOS/Linux)
+mvnw (on Windows)
+```
+
+If you have chosen Gradle, the required command is:
+
+```sh
+./gradlew (on macOS/Linux)
+gradlew (on Windows)
+```
+
+The generated application will look like in [this repo](https://github.com/mraible/jhipster6-demo) where you can also find an article about how to build a simple blog application with JHipster 6.1.2.
+
+## Conclusion
+
+Based on my own experience, I can say that JHipster platform can be extremely useful for Java & Spring developers who want to learn some best practices and integration with popular opensource technologies in a working application. I used the code, read the code and learned from it. From Security implementations to Caching, Configuration Management, Unit, and E2E testing I found anything that my Spring application needs. You can consider using it in new projects for saving your time and see some best practices. Especially if you don’t have dozens of legacy tables and you are designing your database model from the beginning, JHipster can boost your productivity.
+
+If you are curious this link list a showcase of production applications built with JHipster. Please share your own experiences and live your comments. See you next post!

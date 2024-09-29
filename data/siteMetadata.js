@@ -1,9 +1,9 @@
 /** @type {import("pliny/config").PlinyConfig } */
 const siteMetadata = {
-  title: 'TrendSummary',
-  author: 'Trend Summary',
-  headerTitle: 'Trend Summary',
-  description: 'Your news letter for internet search trends around the world',
+  title: 'mrgenco blog',
+  author: 'mrgenco',
+  headerTitle: 'mrgenco blog',
+  description: 'My personal blog',
   language: 'en-us',
   theme: 'system', // system, dark or light
   siteUrl: 'https://tailwind-nextjs-starter-blog.vercel.app',
@@ -44,7 +44,7 @@ const siteMetadata = {
     //   posthogProjectApiKey: '', // e.g. 123e4567-e89b-12d3-a456-426614174000
     // },
     googleAnalytics: {
-      googleAnalyticsId: 'G-3ZT1NV05J7', // e.g. G-XXXXXXX
+      //googleAnalyticsId: 'G-3ZT1NV05J7', // e.g. G-XXXXXXX
     },
   },
   newsletter: {
