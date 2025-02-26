@@ -1,14 +1,11 @@
 {
-  "apple": 1,
-  "iphone16": 1,
-  "smartphones": 1,
-  "technology": 1,
-  "ai": 1,
-  "java": 1,
-  "javascript": 3,
-  "springboot": 3,
-  "docker": 1,
+  "genel": 1,
+  "javascript": 4,
+  "nodejs": 2,
   "serverless": 1,
+  "springboot": 4,
   "containers": 1,
-  "nodejs": 2
+  "vue": 1,
+  "java": 1,
+  "docker": 1
 }
